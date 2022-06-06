@@ -1,0 +1,10 @@
+Package: hr-etl
+Version: 0.0.1
+Authors@R: person("Pieter", "Provoost", , "pieterprovoost@gmail.com", role = c("aut", "cre"))
+Encoding: UTF-8
+Imports:
+    aws.s3
+    stringr
+    geojsonsf
+    glue
+    lubridate
