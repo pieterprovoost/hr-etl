@@ -41,5 +41,5 @@ data$images <- append(data$images, json)
 data$images <- data$images[order(names(data$images), decreasing = TRUE)]
 data$images <- head(data$images, 12)
 
-data_output <- charToRaw(jsonlite::toJSON(data, auto_unbox = TRUE))
+data_output <- charToRaw(jsonlite::toJSON(data, auto_unbox = TRUE), null = "null")
 put_object(data_output, object = "hagel.json", bucket = "pieterprovoost-hagel", acl = "public-read")
