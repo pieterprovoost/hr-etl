@@ -34,6 +34,7 @@ images <- radar_knmi("radar_hail_warning_5min", "1.0", after = after)
 message(glue("Retrieved {length(images)} images from KNMI"))
 geoms <- lapply(images, knmi_to_polygon)
 json <- lapply(geoms, function(x) {
+  if (is.null(x)) return(NULL)
   sfc_geojson(sf::st_transform(x, 4326))
 })
 data$images <- append(data$images, json)
