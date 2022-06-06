@@ -11,6 +11,7 @@ Imports:
     stringr,
     geojsonsf,
     lubridate,
-    aws.s3
+    aws.s3,
+    hagel
 Remotes: pieterprovoost/hagel
     
