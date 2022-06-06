@@ -1,0 +1,28 @@
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  run:
+    name: run
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+      - name: install dependencies
+        run: |
+          install.packages("remotes")
+          install.packages("stringr")
+          install.packages("glue")
+          install.packages("geojsonsf")
+          install.packages("aws.s3")
+          install.packages("lubridate")
+          remotes::install_github("pieterprovoost/hagel")
+        shell: Rscript {0}
+      - name: run
+        run: |
+          source("script.R")
+        shell: Rscript {0}
+
