@@ -1,10 +1,13 @@
+name: run
+
 on:
+  push:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: '*/5 * * * *'
 
 jobs:
   run:
-    name: run
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
@@ -25,4 +28,3 @@ jobs:
         run: |
           source("script.R")
         shell: Rscript {0}
-
