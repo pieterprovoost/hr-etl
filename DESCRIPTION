@@ -1,15 +1,16 @@
 Package: hr-etl
+Title: hr-etl
 Description: hr-etl
 Version: 0.0.1
-Authors@R: person("Pieter", "Provoost", , "pieterprovoost@gmail.com", role = c("aut", "cre"))
+Author: Pieter Provoost
+Maintainer: Pieter Provoost
 Encoding: UTF-8
 License: file LICENSE
 Imports:
+    glue,
+    stringr,
+    geojsonsf,
+    lubridate,
     aws.s3
-    stringr
-    geojsonsf
-    glue
-    lubridate
-Remotes:
-    pieterprovoost/hagel
+Remotes: pieterprovoost/hagel
     
