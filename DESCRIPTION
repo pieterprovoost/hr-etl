@@ -12,6 +12,7 @@ Imports:
     geojsonsf,
     lubridate,
     aws.s3,
+    readr,
     hagel
 Remotes: pieterprovoost/hagel
     

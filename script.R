@@ -3,6 +3,7 @@ library(aws.s3)
 library(stringr)
 library(geojsonsf)
 library(glue)
+library(readr)
 
 readRenviron(".env")
 
