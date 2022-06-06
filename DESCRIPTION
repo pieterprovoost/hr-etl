@@ -1,4 +1,5 @@
 Package: hr-etl
+Description: hr-etl
 Version: 0.0.1
 Authors@R: person("Pieter", "Provoost", , "pieterprovoost@gmail.com", role = c("aut", "cre"))
 Encoding: UTF-8
