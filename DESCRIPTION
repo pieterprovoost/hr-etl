@@ -13,6 +13,8 @@ Imports:
     lubridate,
     aws.s3,
     readr,
+    rgeos,
+    igraph,
     hagel
 Remotes: pieterprovoost/hagel
     
