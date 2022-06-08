@@ -35,7 +35,7 @@ message(glue("Retrieved {length(images)} images from KNMI"))
 geoms <- lapply(images, knmi_to_polygon)
 json <- lapply(geoms, function(x) {
   if (is.null(x)) return(NULL)
-  sfc_geojson(sf::st_transform(x, 4326))
+  sf_geojson(sf::st_transform(x, 4326), digits = 6)
 })
 data$images <- append(data$images, json)
 data$images <- data$images[order(names(data$images), decreasing = TRUE)]
