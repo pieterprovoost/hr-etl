@@ -15,6 +15,7 @@ Imports:
     readr,
     rgeos,
     igraph,
+    jsonlite,
     hagel
 Remotes: pieterprovoost/hagel
     
