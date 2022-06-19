@@ -47,24 +47,31 @@ data$images <- head(data$images, 12)
 
 # alerts
 
-start <- paste0(lubridate::format_ISO8601(lubridate::now("UTC") - lubridate::minutes(60)), ".000Z", sep = "")
-url <- glue::glue("https://hub.meteoalarm.org/api/v1/stream-buffers/all-warnings/warnings?startDate={start}&language=en&include_geocodes=1&exclude_severity_minor=1")
-res <- fromJSON(url, simplifyDataFrame = FALSE, simplifyVector = FALSE)
-alerts <- purrr::map(res$warnings, function(warning) {
-  regions <- unlist(warning$regions) %>% paste0(collapse = ",")
-  info <- purrr::pluck(warning, "alert", "info") %>%
-    purrr::map(~ .[intersect(names(.), c("certainty", "description", "headline", "language"))]) %>%
-    bind_rows() %>%
-    filter(language == "en-GB")
-  info$regions <-  regions
-  return(info)
-}) %>%
-  bind_rows() %>%
-  #filter(str_detect(tolower(headline), "hail")) %>%
-  filter(str_detect(regions, "NL") | str_detect(regions, "BE"))
-
-message(glue("found {nrow(alerts)} alerts"))
-data$alerts <- alerts
+tryCatch(
+  {
+    start <- paste0(lubridate::format_ISO8601(lubridate::now("UTC") - lubridate::minutes(60)), ".000Z", sep = "")
+    url <- glue::glue("https://hub.meteoalarm.org/api/v1/stream-buffers/all-warnings/warnings?startDate={start}&language=en&include_geocodes=1&exclude_severity_minor=1")
+    res <- fromJSON(url, simplifyDataFrame = FALSE, simplifyVector = FALSE)
+    alerts <- purrr::map(res$warnings, function(warning) {
+      regions <- unlist(warning$regions) %>% paste0(collapse = ",")
+      info <- purrr::pluck(warning, "alert", "info") %>%
+        purrr::map(~ .[intersect(names(.), c("certainty", "description", "headline", "language"))]) %>%
+        bind_rows() %>%
+        filter(language == "en-GB")
+      info$regions <-  regions
+      return(info)
+    }) %>%
+      bind_rows() %>%
+      #filter(str_detect(tolower(headline), "hail")) %>%
+      filter(str_detect(regions, "NL") | str_detect(regions, "BE"))
+    
+    message(glue("found {nrow(alerts)} alerts"))
+    data$alerts <- alerts
+  },
+  error = function(cond) {},
+  warning = function(cond) {},
+  finally = {}
+)
 
 # output
 
