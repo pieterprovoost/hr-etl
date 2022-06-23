@@ -62,9 +62,8 @@ tryCatch(
       return(info)
     }) %>%
       bind_rows() %>%
-      #filter(str_detect(tolower(headline), "hail")) %>%
+      filter(str_detect(tolower(headline), "hail") | str_detect(tolower(description), "hail")) %>%
       filter(str_detect(regions, "NL") | str_detect(regions, "BE"))
-    
     message(glue("found {nrow(alerts)} alerts"))
     data$alerts <- alerts
   },
