@@ -36,10 +36,15 @@ message(glue("Setting after to {after}"))
 
 images <- radar_knmi("radar_hail_warning_5min", "1.0", after = after)
 message(glue("Retrieved {length(images)} images from KNMI"))
+
 geoms <- lapply(images, knmi_to_polygon, threshold = 127)
 print(geoms)
 json <- lapply(geoms, function(x) {
   if (is.null(x)) return(NULL)
+  if (is.na(st_crs(x))) {
+    # not sure why necessary sometimes
+    x <- x %>% sf::st_set_crs("+proj=stere +lat_0=90 +lat_ts=60 +lon_0=0 +x_0=0 +y_0=0 +a=6378140 +rf=298.183263207106 +units=m +no_defs")
+  }
   sf_geojson(sf::st_transform(x, 4326), digits = 6)
 })
 data$images <- append(data$images, json)
