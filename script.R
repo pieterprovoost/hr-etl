@@ -41,7 +41,7 @@ geoms <- lapply(images, knmi_to_polygon, threshold = 127)
 print(geoms)
 json <- lapply(geoms, function(x) {
   if (is.null(x)) return(NULL)
-  if (is.na(st_crs(x))) {
+  if (is.na(sf::st_crs(x))) {
     # not sure why necessary sometimes
     x <- x %>% sf::st_set_crs("+proj=stere +lat_0=90 +lat_ts=60 +lon_0=0 +x_0=0 +y_0=0 +a=6378140 +rf=298.183263207106 +units=m +no_defs")
   }
