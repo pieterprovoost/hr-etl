@@ -2,6 +2,8 @@ name: run
 
 on:
   push:
+  schedule:
+    - cron: '*/30 * * * *'
 
 jobs:
   run:
